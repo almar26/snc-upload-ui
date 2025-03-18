@@ -6,17 +6,17 @@
       <v-form class="mx-10 mt-4 mb-10" ref="loginForm" v-model="valid" lazy-validation @submit.prevent="login">
 
         <!-- <div class="text-subtitle-1 text-medium-emphasis">Username</div> -->
-        <v-text-field placeholder="Enter your username" prepend-inner-icon="mdi-account-outline"
+        <v-text-field rounded placeholder="Enter your username" prepend-inner-icon="mdi-account"
           v-model="user.identifier" density="default" :rules="usernameRules" variant="outlined"></v-text-field>
 
         <!-- <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
           Password
         </div> -->
-        <v-text-field :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'" :type="visible ? 'text' : 'password'"
-          placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline" variant="outlined"
+        <v-text-field rounded :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'" :type="visible ? 'text' : 'password'"
+          placeholder="Enter your password" prepend-inner-icon="mdi-lock" variant="outlined"
           v-model="user.password" density="default" :rules="passwordRules" @click:append-inner="visible = !visible"></v-text-field>
 
-        <v-btn :loading="loading" class="mb-8 mt-4 font-weight-bold" color="primary" variant="tonal" block
+        <v-btn :loading="loading" rounded class="mb-8 mt-4 font-weight-bold" color="primary" size="large" variant="tonal" block
           type="submit">
           Log In
         </v-btn>

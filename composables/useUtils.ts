@@ -9,15 +9,16 @@ export const useUtils = () => {
     try {
       const result = await axios.post(`${config.public.baseURL}/api/upload`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${config.public.apiToken}`
         }
       });
       if (result) {
         return result.data;
       }
     } catch (err) {
-      console.error('Error uploading image: ', error);
-      throw error;
+      console.error('Error uploading image: ', err);
+      throw err;
     }
   }
   return {

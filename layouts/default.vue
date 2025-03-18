@@ -1,11 +1,17 @@
 <template>
   <v-app>
     <v-app-bar prominent scroll-behavior="elevate">
-      <v-app-bar-nav-icon
+      <!-- <v-app-bar-nav-icon
         variant="text"
         @click.stop="drawer = !drawer"
-      ></v-app-bar-nav-icon>
-      <v-toolbar-title>SNC Upload Files</v-toolbar-title>
+      ></v-app-bar-nav-icon> -->
+      <v-avatar class="ml-5" size="50">
+      <v-img
+        alt="John"
+        src="/SNC-Logo.png"
+      ></v-img>
+    </v-avatar>
+      <v-toolbar-title>SNC Uploaded Files</v-toolbar-title>
       <v-spacer></v-spacer>
      
       <div class="mr-2">
