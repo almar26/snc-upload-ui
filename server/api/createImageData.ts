@@ -1,9 +1,9 @@
 import axios from 'axios'
-import * as dotenv from 'dotenv'
-dotenv.config();
-const STRAPI_BASEURL = process.env.BASE_URL
+const BASE_URL = process.env.BASE_URL
 
 export default defineEventHandler(async (event) => {
+  const cookies = parseCookies(event);
+  const token = cookies?.token;
   try {
     const body = await  readBody(event);
     const myPayload =  {
@@ -13,7 +13,11 @@ export default defineEventHandler(async (event) => {
       img_id: body.img_id
     };
 
-    const result = await axios.post(`${STRAPI_BASEURL}/api/upload-image/create`, myPayload)
+    const result = await axios.post(`${BASE_URL}/api/upload-image/create`, myPayload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
     if (result) {
       return result.data
     }
