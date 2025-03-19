@@ -5,12 +5,14 @@
         variant="text"
         @click.stop="drawer = !drawer"
       ></v-app-bar-nav-icon> -->
+      <router-link to="/">
       <v-avatar class="ml-5" size="50">
       <v-img
         alt="John"
         src="/SNC-Logo.png"
       ></v-img>
     </v-avatar>
+  </router-link>
       <v-toolbar-title>SNC Uploaded Files</v-toolbar-title>
       <v-spacer></v-spacer>
      

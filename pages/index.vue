@@ -27,7 +27,10 @@
       <v-col cols="12" md="8">
         <v-card elevation="0">
           <v-card-text>
-            <v-row>
+          <div class="d-flex align-center justify-center" style="height: 30vh;" v-if="loader">
+              <VueSpinnerIos size="50"/>
+          </div>
+            <v-row v-else>
               <v-col cols="12" md="2" v-for="(item, i) in imageData" :key="i">
                 <v-hover v-slot="{ isHovering, props }">
                   <v-card color="grey-lighten-4"  class="mx-auto" max-width="344" elevation="0" v-bind="props">
@@ -36,7 +39,7 @@
                       <v-expand-transition>
                         <div v-if="isHovering" class="d-flex bg-orange-darken-2 v-card--reveal text-h6"
                           style="height: 100%;">
-                          <v-btn variant="flat" icon> <v-icon>mdi-open-in-new</v-icon></v-btn>
+                          <v-btn variant="flat" icon :to="`/view/${item.documentId}`"> <v-icon>mdi-open-in-new</v-icon></v-btn>
                         </div>
                       </v-expand-transition>
                     </v-img>
@@ -101,6 +104,7 @@ import axios from "axios";
 const { uploadImage } = useUtils();
 const config = useRuntimeConfig();
 
+const loader = ref(true);
 const avatarImage = ref(null);
 const valid = ref(true)
 const publicID = ref("");
@@ -196,6 +200,7 @@ async function getImageInfo() {
     let result = await $fetch("/api/getImageData");
     if (result) {
       imageData.value = result.data;
+      loader.value = false;
     }
   } catch (err) {
     console.error("Failed to fetch data: ", err);
