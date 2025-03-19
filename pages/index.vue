@@ -37,7 +37,7 @@
                     <v-img height="200px" :src="baseUrl + item.image_url">
 
                       <v-expand-transition>
-                        <div v-if="isHovering" class="d-flex bg-orange-darken-2 v-card--reveal text-h6"
+                        <div v-if="isHovering" class="d-flex bg-green v-card--reveal text-h6"
                           style="height: 100%;">
                           <v-btn variant="flat" icon :to="`/view/${item.documentId}`"> <v-icon>mdi-open-in-new</v-icon></v-btn>
                         </div>
