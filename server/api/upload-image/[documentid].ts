@@ -5,11 +5,7 @@ export default defineEventHandler(async (event) => {
   const cookies = parseCookies(event);
   const token = cookies?.token
   try {
-    const result = await axios.get(`${BASE_URL}/api/upload-image/${documentid}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    const result = await axios.get(`${BASE_URL}/api/upload-image/${documentid}`)
     if(result) {
       return result.data;
     }

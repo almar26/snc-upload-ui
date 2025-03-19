@@ -1,14 +1,9 @@
 <template>
   <div>
     <v-app>
-      <v-app-bar prominent>
+      <v-app-bar prominent v-if="authenticated">
         <v-btn @click="$router.back()" icon="mdi-arrow-left" variant="text">
         </v-btn>
-
-
-
-
-
         <v-spacer></v-spacer>
         <div class="mr-5 text-uppercase">
           {{ imageDetails.name }}
@@ -18,6 +13,17 @@
           <v-img alt="SNC Logo" src="/SNC-Logo.png"></v-img>
         </v-avatar>
       </v-app-bar>
+      <v-app-bar prominent v-if="!authenticated">
+        <v-avatar class="ml-3" size="50">
+          <v-img alt="SNC Logo" src="/SNC-Logo.png"></v-img>
+        </v-avatar>
+        <v-spacer></v-spacer>
+        <div class="mr-5 text-uppercase">
+          {{ imageDetails.name }}
+        </div>
+
+
+      </v-app-bar>
       <v-main>
         <v-container fluid>
           <div v-if="isEmpty" class="d-flex align-center justify-center" style="height: 80vh;">
@@ -26,7 +32,12 @@
               title="We couldn't find a match."></v-empty-state>
           </div>
           <div v-else class="d-flex align-center justify-center" style="height: 88vh;">
-            <v-img :src="baseUrl + imageDetails.image_url"></v-img>
+
+            <div v-if="loader">
+              <VueSpinnerIos size="50" />
+            </div>
+            <v-img :src="baseUrl + imageDetails.image_url" v-else></v-img>
+
           </div>
         </v-container>
       </v-main>
@@ -36,6 +47,10 @@
 
 <script setup>
 import { useTheme } from 'vuetify';
+import { storeToRefs } from "pinia";
+import { useMyAuthStore } from "~/stores/auth";
+const { authenticated } = storeToRefs(useMyAuthStore());
+const isAutheticated = ref(authenticated.value);
 const theme = useTheme();
 const route = useRoute();
 const router = useRouter()
@@ -50,6 +65,7 @@ const imageDetails = ref([]);
 const baseUrl = config.public.baseURL
 const isDark = ref(false);
 const isEmpty = ref(false);
+const loader = ref(true);
 theme.global.name.value = 'dark'
 
 async function initialize() {
@@ -62,6 +78,7 @@ async function initialize() {
       } else {
         console.log(result);
         imageDetails.value = result[0]
+        loader.value = false
       }
 
     }
@@ -78,7 +95,7 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-  theme.global.name.value = 'light'
+  theme.global.name.value = 'customLightTheme'
 })
 
 </script>

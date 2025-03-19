@@ -104,6 +104,10 @@ import axios from "axios";
 const { uploadImage } = useUtils();
 const config = useRuntimeConfig();
 
+definePageMeta({
+  layout: "admin",
+});
+
 const loader = ref(true);
 const avatarImage = ref(null);
 const valid = ref(true)
